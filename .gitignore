@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+*.log
+
+# Data files (DO NOT commit raw dataset)
+data/raw/
+data/processed/
+*.zip
+*.csv
+*.parquet
+*.h5
+*.hdf5
+
+# ML models
+backend/app/ml/saved_models/
+*.pkl
+*.joblib
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# Environment
+.env
+*.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker
+.docker/
+
+EnergyPulse/
+
+EnergyPulse/
