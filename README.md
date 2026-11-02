@@ -109,67 +109,86 @@ flowchart TD
 
 ## Live Analytical Visualizations
 
-EnergyPulse features a comprehensive suite of live analytical visualizations engineered for industrial telemetry monitoring and high-density time-series exploration.
+EnergyPulse features a multi-tiered live analytical visualization suite engineered for sub-second telemetry monitoring, high-density time-series exploration, and predictive grid diagnostics.
 
+```mermaid
+flowchart TD
+    subgraph Console["Live Telemetry Monitoring Console"]
+        direction TB
+        subgraph TopStrip["Simulation HUD and Transport Control"]
+            Transport["Interactive Transport: Play | Pause | Stop | Seek Timeline<br/>Speed Acceleration Engine: 0.5x, 1x, 2x, 5x, 10x, 30x, 60x<br/>Temporal Progress Bar and Status Indicator"]
+        end
+
+        subgraph MetricsDeck["Live Metric KPI Deck"]
+            direction LR
+            M1["Active Power<br/>Real-Time kW<br/>Tercile Demand Badge"]
+            M2["Cumulative Energy<br/>Session kWh Total<br/>Live Ingestion Counter"]
+            M3["Voltage and Current<br/>Line Volts V<br/>Amperes A Telemetry"]
+            M4["Estimated Cost<br/>Session Expenditure<br/>Flat-Rate Tariff Engine"]
+        end
+
+        subgraph VisualStream["Real-Time Waveform and Sub-Metering Breakdown"]
+            direction LR
+            WaveformChart["120-Point Rolling Waveform Chart<br/>Minute-Level Active Power kW Stream<br/>Dynamic Anomaly Threshold Intercepts"]
+            SubMeteringChart["Sub-Metering Zone Breakdown<br/>Zone 1: Kitchen Circuits Wh<br/>Zone 2: Laundry and Cooling Wh<br/>Zone 3: Climate Systems Wh"]
+        end
+
+        subgraph TelemetryGrid["12-Parameter Live Sensor Telemetry Matrix"]
+            Sensors["Timestamp | Active kW | Reactive kVAR | Voltage V | Current A | Energy/min<br/>Cost/min | Kitchen Wh | Laundry Wh | Climate Wh | Class State | Anomaly Flag"]
+        end
+
+        TopStrip --> MetricsDeck
+        MetricsDeck --> VisualStream
+        VisualStream --> TelemetryGrid
+    end
 ```
-+--------------------------------------------------------------------------------------------------+
-|  ENERGYPULSE  |  Live Monitor  Historical  Classification  Forecast  Alerts  Reports  Settings   |
-+--------------------------------------------------------------------------------------------------+
-| [Play] [Pause] [Stop] [Seek] Speed: [ 60x v ]  Time: 2007-03-14 18:42:00  Status: Connected      |
-+--------------------------------------------------------------------------------------------------+
-|  +---------------------------+  +-------------------------------------------------------------+  |
-|  |    ACTIVE POWER GAUGE     |  |                 REAL-TIME TELEMETRY STREAM                  |  |
-|  |                           |  |  kW                                                         |  |
-|  |          3.42 kW          |  |   4 |        /\            /\                               |  |
-|  |     [==== Moderate ====]  |  |   2 |  /\   /  \    /\    /  \    /\                        |  |
-|  |     Peak: 5.12 kW         |  |   0 +--/--\/----\--/--\--/----\--/--\---------------------  |  |
-|  +---------------------------+  +-------------------------------------------------------------+  |
-|  +--------------------------------------------------------------------------------------------+  |
-|  |                               SUB-METERING REAL-TIME DISTRIBUTION                           |  |
-|  |  Sub-Meter 1 (Kitchen): [======== 24% ]      Sub-Meter 2 (Laundry): [==== 12% ]             |  |
-|  |  Sub-Meter 3 (Climate): [================ 48% ]  Base Load:         [====== 16% ]          |  |
-|  +--------------------------------------------------------------------------------------------+  |
-|  +-------------------------------------------------------------+  +---------------------------+  |
-|  |                    ANOMALY ALERTS FEED                      |  |    LOAD CLASSIFICATION    |  |
-|  |  [CRITICAL] 2007-03-14 18:39 - Z-Score > 5.1 (5.42 kW)      |  |  State: High Demand       |  |
-|  |  [MEDIUM]   2007-03-14 18:15 - Delta Surge +2.8 kW          |  |  Confidence: 94.2%        |  |
-|  +-------------------------------------------------------------+  +---------------------------+  |
-+--------------------------------------------------------------------------------------------------+
-```
 
-### Analytical Visualization Components
+### Analytical Visualization Suite
 
-1. **Sub-Second Radial Power Gauge**
-   - Displays instantaneous active power in kilowatts with continuous needle tracking.
-   - Dynamic color-coded thresholds: Green (Low Demand), Amber (Moderate Demand), Red (High / Overload).
-   - Real-time indicator for instantaneous line voltage and current intensity in amperes.
+| Dashboard Module | Primary Chart Type | Telemetry and Dimensions | Live Analytical Capabilities |
+|------------------|--------------------|--------------------------|------------------------------|
+| **Live Monitor** | Rolling Waveform &amp; Metric Cards | Active kW, Voltage V, Current A, Cost | 120-point sliding window at 1x–3600x speed with real-time anomaly flags |
+| **Historical Analysis** | Temporal Area &amp; Bar Charts | Hourly avg/peak kW, Daily totals | 4-year chronological exploration (2006–2010) with custom date filters |
+| **Diurnal Heatmap** | 168-Cell 7&times;24 Matrix | Hour of day (0–23) &times; Day of week | Color-ramp density highlighting peak consumption patterns and baseload |
+| **Demand Classification** | Tercile State &amp; Donut Matrix | Percentile thresholds (P33, P67) | Real-time classification into Low, Moderate, High with confusion matrix |
+| **Demand Forecaster** | Dual-Line Trajectory Curve | Next-hour kWh prediction vs. actual | Continuous MAE and RMSE benchmarking against Lag-1h and Lag-24h baselines |
+| **Anomaly Center** | Incident Waterfall &amp; Badges | Z-score, IQR, kW limit, Delta surge | Live incident triage, severity categorization (Low–Critical), and CSV export |
+| **Sustainability Optimizer** | Peak-Shaving &amp; ROI Cards | Top-3 peak hours, Vampire baseload | Quantified kWh reduction targets and annual cost savings projections |
+| **Executive Reports** | Aggregate KPI Cards &amp; Bars | Multi-metric rollups, Cost curves | Comprehensive system summary and one-click bulk CSV export |
 
-2. **60-Second Sliding-Window Telemetry Chart**
-   - High-frequency rolling waveform tracking active power (kW) and reactive power (kVAR).
-   - Integrated voltage anomaly threshold line with visual over-voltage and sag detection.
-   - Smooth animation powered by Recharts with zero UI stutter at 3600x simulation acceleration.
+### Visualization Component Deep-Dives
 
-3. **Multi-Zone Sub-Meter Energy Decomposition**
-   - Live proportional distribution visualizing three dedicated sub-metered circuits:
-     - **Sub-Meter 1**: Kitchen appliances (dishwasher, microwave, electric oven).
-     - **Sub-Meter 2**: Laundry room and cooling (washing machine, dryer, refrigerator).
-     - **Sub-Meter 3**: Climate control (electric water heater, space heating, air conditioning).
-   - Computes and isolates ambient household residual base load in real time.
+1. **Sub-Second Rolling Telemetry Waveform (`/live`)**
+   - High-frequency sliding-window trend chart plotting active power (kW) over the last 120 readings.
+   - Sub-second vector rendering via Recharts with zero UI lag even under 3600x simulation replay.
+   - Dynamic threshold overlay lines displaying real-time anomaly boundaries and immediate visual alerts.
 
-4. **7x24 Day-Hour Diurnal Heatmap Matrix**
-   - Interactive 168-cell matrix mapping consumption intensity across all 7 weekdays and 24 hourly bins.
-   - Gradient-shaded density cells identifying peak household activity windows, baseload hours, and anomalies.
-   - On-hover inspection reporting mean kWh, peak kW, and sample count for each specific hour-day coordinate.
+2. **7&times;24 Diurnal Consumption Heatmap Matrix (`/historical`)**
+   - Interactive 168-coordinate grid mapping hourly energy distribution across all days of the week.
+   - Gradient-shaded density cells identifying recurring diurnal peaks, appliance cycles, and quiet hours.
+   - On-hover tooltip inspection reporting average kW, peak kW, and sample volume for each individual hour-day coordinate.
 
-5. **Dual-Series Forecast Trajectory Curves**
-   - Forward-looking 24-hour demand prediction plotted directly against historical load curves.
-   - Visual baseline comparison highlighting Ridge Regression vs. Last-Observed and Same-Time-Yesterday baselines.
-   - Integrated error scorecards displaying dynamic MAE (Mean Absolute Error) and RMSE metrics.
+3. **Multi-Zone Sub-Meter Energy Breakdown (`/historical`, `/live`)**
+   - Proportional circuit analysis measuring the three physical sub-metering zones:
+     - **Zone 1 (Kitchen)**: Dishwasher, microwave, and food preparation circuits.
+     - **Zone 2 (Laundry &amp; Cooling)**: Washing machine, tumble dryer, and refrigerator.
+     - **Zone 3 (Climate Control)**: Electric water heater, space heating, and air conditioning.
+   - Mathematical residual calculation isolating continuous ambient household baseload.
 
-6. **Real-Time Anomaly Incident Visualizer**
-   - Severity-graded visual pill tags: Low, Medium, High, and Critical.
-   - Categorized by detection rule: Z-score breach, IQR outlier, absolute limit, or rapid delta surge.
-   - One-click acknowledgment action and filterable historical audit trail with CSV export.
+4. **Dual-Series Demand Forecast Trajectory Curves (`/forecast`)**
+   - 24-hour forward-looking demand prediction curves plotted side-by-side with actual historical consumption.
+   - Transparent model comparison benchmarking Ridge Regression against Last-Observed (Lag-1h) and Same-Time-Yesterday (Lag-24h) baselines.
+   - Dynamic error scorecards calculating real-time Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE).
+
+5. **Multi-Vector Anomaly Alert Center (`/alerts`)**
+   - Real-time incident stream classifying anomalies by statistical trigger: Z-score breach, IQR outlier, absolute kW violation, or delta surge.
+   - Color-coded severity badge taxonomy: Low, Medium, High, and Critical.
+   - Interactive incident lifecycle management: status filtering, one-click acknowledgment, and full CSV audit export.
+
+6. **Sustainability &amp; Tariff Optimization Engine (`/recommendations`)**
+   - Diurnal peak-hour identification engine recommending optimal load-shifting windows.
+   - Overnight phantom vampire load audits estimating baseload waste.
+   - Direct financial translation: projected kWh savings converted into monetary ROI in ₹.
 
 ---
 
