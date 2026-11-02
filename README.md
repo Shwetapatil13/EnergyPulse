@@ -11,9 +11,9 @@
 ╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝      ╚═════╝ ╚══════╝╚══════╝╚══════╝
 ```
 
-### Smart Energy Monitoring & Analytics Dashboard
+## Smart Energy Monitoring & Analytics Dashboard
 
-*Real-Time IoT Simulation &bull; Machine Learning Pipeline &bull; Interactive Telemetry*
+**Industrial-Grade IoT Simulation &bull; Real-Time Telemetry &bull; Machine Learning Pipeline**
 
 <br/>
 
@@ -21,13 +21,14 @@
 [![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev)
 [![MySQL](https://img.shields.io/badge/MySQL_8-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
 [![Python](https://img.shields.io/badge/Python_3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
 [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
 
 <br/>
 
 > **Academic Simulation Project**  
-> Replays 2,075,259 real electricity readings from the UCI Household Power Consumption dataset (France, 2006–2010) through a virtual IoT streaming pipeline.
+> Replays 2,075,259 real-world electricity readings from the UCI Household Power Consumption dataset (France, 2006–2010) through a high-frequency virtual IoT telemetry engine with real-time ML anomaly detection and energy forecasting.
 
 <br/>
 
@@ -35,314 +36,323 @@
 
 ---
 
-<div align="center">
+## Executive Overview
 
-## Overview
+EnergyPulse is a full-stack, real-time energy telemetry and predictive intelligence platform designed to bridge the gap between smart electrical infrastructure and actionable analytics. Built on high-resolution smart meter readings recorded every minute over 4 years, EnergyPulse transforms massive time-series datasets into real-time operational intelligence.
 
-</div>
+The platform continuously replays historical consumption through an asynchronous streaming engine, processes incoming telemetry through an online machine learning pipeline, flags anomalies across multiple statistical vectors, and serves live analytical visualizations over low-latency WebSockets.
 
-EnergyPulse streams minute-level electricity readings through a **virtual IoT simulator**, processes them in real-time through an ML pipeline, and visualizes everything in a sleek dark-mode dashboard — live charts, anomaly alerts, forecasts, and sustainability recommendations.
-
-<br/>
-
-<div align="center">
-
-## Dashboard Modules
-
-</div>
-
-<table>
-<tr>
-<td width="50%">
-
-**Live Monitor**
-- Real-time dataset replay at up to 3600x speed
-- WebSocket streaming with auto-reconnect
-- Animated power gauge and rolling chart
-- Playback controls: Start &bull; Pause &bull; Resume &bull; Stop &bull; Seek
-
-</td>
-<td width="50%">
-
-**Historical Analysis**
-- Full 4-year dataset (2006–2010) exploration
-- Hourly &amp; daily power trend charts
-- Day-of-week &times; Hour heatmap (7&times;24 grid)
-- Date range filter + CSV export
-
-</td>
-</tr>
-<tr>
-<td>
-
-**Load Classification**
-- Percentile-based labeling: Low / Moderate / High
-- Class distribution &amp; accuracy metrics
-- Training data statistics
-- Real-time classification per reading
-
-</td>
-<td>
-
-**Energy Forecast**
-- ML or naive-baseline energy predictions
-- Predicted vs actual comparison chart
-- MAE, RMSE model metrics
-- 24-hour ahead forecast
-
-</td>
-</tr>
-<tr>
-<td>
-
-**Anomaly Alerts**
-- Z-score, IQR &amp; absolute threshold detection
-- Severity levels: Low / Medium / High / Critical
-- Filter, acknowledge &amp; track alert history
-- CSV export
-
-</td>
-<td>
-
-**Recommendations**
-- Data-driven sustainability tips
-- Estimated savings in kWh &amp; ₹
-- Peak-shift, standby &amp; appliance advice
-- Pattern-based insights from 4 years of data
-
-</td>
-</tr>
-<tr>
-<td>
-
-**Reports**
-- Full KPI summary cards
-- Daily trend bar chart
-- Load class &amp; alert breakdown tables
-- One-click CSV export for readings &amp; alerts
-
-</td>
-<td>
-
-**Settings**
-- Configurable electricity tariff (₹/kWh)
-- Anomaly detection thresholds
-- Simulator speed &amp; loop controls
-- Real-time settings applied to pipeline
-
-</td>
-</tr>
-</table>
+```
++---------------------------------------------------------------------------------+
+|                           UCI DATASET (2,075,259 READINGS)                      |
++---------------------------------------------------------------------------------+
+                                         |
+                                         v
++---------------------------------------------------------------------------------+
+|                       Vectorized Data Cleaning & Parquet Cache                  |
++---------------------------------------------------------------------------------+
+                                         |
+                                         v
++---------------------------------------------------------------------------------+
+|                   Asynchronous Simulation Engine (1x - 3600x Replay)            |
++---------------------------------------------------------------------------------+
+                         |                                       |
+                         v (WebSocket Stream)                    v (Ingestion Pipeline)
++-----------------------------------------------+   +-----------------------------+
+|           FastAPI Telemetry Hub               |   |     Online ML & Analytics   |
+|         (/ws/live Broadcast Server)           |   | - Rolling Z-Score / IQR     |
++-----------------------------------------------+   | - Tercile Load Classifier   |
+                         |                          | - Rolling Window Aggregates |
+                         v                          +-----------------------------+
++-----------------------------------------------+                    |
+|             React 18 Dashboard                |                    v
+|  - Real-Time Power Gauges & Telemetry Charts  |   +-----------------------------+
+|  - 7x24 Consumption Heatmaps & Predictions    |   |       MySQL 8 Database      |
+|  - Multi-Zone Sub-Meter Energy Breakdown      |   |   (Aggregates, Alerts, ML)  |
++-----------------------------------------------+   +-----------------------------+
+```
 
 ---
 
-<div align="center">
+## System Capabilities & Core Features
 
-## Project Structure
+### 1. Real-Time Telemetry & Virtual IoT Simulator
+- **Accelerated Dataset Replay**: Stream 2M+ records at selectable multipliers from 1x up to 3600x real-time speed.
+- **Bi-Directional Simulation Controls**: Full interactive transport controls including Start, Pause, Resume, Stop, and Time-Seek across the 4-year timeline.
+- **Persistent WebSocket Feed**: Resilient WebSocket streaming (`/ws/live`) with automatic client-side reconnection, packet buffering, and sub-second UI updates.
+- **Dynamic Telemetry Gauges**: Live active power gauge displaying instantaneous load, coupled with rolling 60-point real-time trend charts.
 
-</div>
+### 2. Multi-Vector Anomaly Detection Engine
+- **Rolling Z-Score Detection**: Computes moving standard scores against dynamic temporal windows, grading severity into Low, Medium, High, and Critical alerts.
+- **Interquartile Range (IQR) Fencing**: Identifies sudden non-Gaussian distribution spikes, isolating unusual energy spikes without false-alarm escalation.
+- **Absolute Power Safeguards**: Monitors instantaneous load against customizable kW safety thresholds to detect breaker overload risks.
+- **Delta-Rate Spike Analysis**: Evaluates rate-of-change between consecutive readings to catch rapid surges and equipment faults.
+- **Alert Triage & Incident Audit**: Filter active alerts by severity or detection rule, acknowledge notifications, and export incident logs to CSV.
+
+### 3. Machine Learning Demand Classification
+- **Tercile Percentile Partitioning**: Statistically sound classification into Low, Moderate, and High consumption tiers based strictly on training distributions.
+- **Leakage-Free Predictive Modeling**: Chronological 80/20 train-test splits ensuring zero future data contamination during model evaluation.
+- **Random Forest & Decision Tree Benchmarks**: Supervised classification models trained purely on lag and temporal indicators (hour, weekday, weekend flag, season).
+- **Comprehensive Validation Metrics**: Real-time access to model accuracy, precision, recall, F1-scores, and full confusion matrix outputs directly in the UI.
+
+### 4. Next-Hour Energy Demand Forecasting
+- **Multi-Model Regression Suite**: Next-hour kWh consumption prediction powered by Ridge Regression, Linear Regression, and Random Forest regressors.
+- **Dual Baseline Comparisons**: Transparent benchmarking against Last-Observed (Lag 1h) and Same-Time-Yesterday (Lag 24h) baseline estimators.
+- **Continuous Performance Auditing**: Real-time tracking of Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and R-squared performance metrics.
+- **24-Hour Predictive Horizon**: Forward-looking demand trajectory curves plotted directly against actual historical load curves.
+
+### 5. Multi-Zone Sub-Metering Analytics
+- **Kitchen Appliance Zone (Sub-Meter 1)**: Granular tracking of microwave, dishwasher, and food preparation energy draws.
+- **Laundry & Utility Zone (Sub-Meter 2)**: Dedicated telemetry for washing machines, tumble dryers, and refrigeration units.
+- **Climate Control Zone (Sub-Meter 3)**: High-draw thermal monitoring for electric water heating, space heating, and air conditioning.
+- **Unmetered Residual Calculation**: Mathematical isolation of ambient household base load and lighting loads by subtracting sub-meter totals from active power.
+
+### 6. Historical Analytics & 7x24 Matrix Heatmaps
+- **4-Year High-Resolution Archive**: Query and explore every minute between December 2006 and November 2010.
+- **7x24 Day-Hour Matrix**: Interactive 168-cell heatmap mapping load intensity across all 7 days of the week against 24 hourly bins.
+- **Temporal Rollup Aggregations**: Pre-indexed hourly and daily rollups enabling instantaneous trend rendering without heavy table scans.
+- **Period Comparison Engine**: Side-by-side comparative analytics evaluating week-over-week and month-over-month consumption shifts.
+
+### 7. Tariff-Aware Sustainability & Financial Recommendations
+- **Configurable Tariff Engine**: Real-time electricity cost modeling with user-adjustable pricing (default ₹8.00/kWh).
+- **Automated Peak Shaving Advice**: Identifies top three diurnal consumption peaks and quantifies the financial savings achievable via load shifting.
+- **Vampire Load & Standby Audits**: Identifies continuous overnight baseload draws and computes potential annual savings from smart plug shutdowns.
+- **Quantified ROI Projections**: Generates specific, data-backed kWh reduction targets paired with monetary savings estimates.
+
+### 8. Executive Reports & Data Export
+- **Comprehensive KPI Telemetry**: Instant summary cards for total consumption, peak active power, aggregate cost, and anomaly frequency.
+- **Load Distribution Breakdowns**: Categorized tables showing percentages of time spent in Low, Moderate, and High consumption bands.
+- **One-Click CSV Export**: Direct asynchronous downloads for raw time-series readings, aggregate summaries, and anomaly incident logs.
+
+---
+
+## Technical Stack Architecture
+
+| Layer | Component | Version | Role in Architecture |
+|-------|-----------|---------|----------------------|
+| **Backend API** | FastAPI | 0.115 | High-throughput asynchronous REST endpoints and WebSocket stream management |
+| **ASGI Server** | Uvicorn | 0.30 | Lightning-fast asynchronous server gateway interface |
+| **ORM & Database Engine** | SQLAlchemy | 2.x | Database connection pooling, session lifecycle, and optimized SQL queries |
+| **Data Processing** | Pandas &amp; NumPy | 2.x | High-speed vectorized data preprocessing, rollups, and rolling-window math |
+| **Machine Learning** | Scikit-Learn | 1.x | Regression forecasting models, classification trees, and validation metrics |
+| **Serialization** | PyArrow / Parquet | Latest | Fast columnar storage for the 2.07M raw reading cache |
+| **Frontend Framework** | React | 18 | Declarative single-page application with functional component architecture |
+| **Build & Tooling** | Vite | 5/8 | Fast Hot-Module-Replacement (HMR) development and optimized production bundling |
+| **Data Visualization** | Recharts | 2.x | Responsive SVG telemetry curves, bar charts, gauges, and heatmap grids |
+| **HTTP Client** | Axios | 1.x | REST API integration with custom interceptors and blob-based CSV download support |
+| **Database** | MySQL | 8.0 | Primary relational storage with composite indexing on temporal columns |
+| **DevOps & Containers** | Docker Compose | Latest | Reproducible, isolated multi-service orchestration |
+
+---
+
+## Dataset Specifications
+
+EnergyPulse uses the canonical **Individual Household Electric Power Consumption** benchmark from the UC Irvine Machine Learning Repository.
+
+```
+Total Records      : 2,075,259 measurements
+Sampling Frequency : 1-minute intervals
+Timeline           : December 16, 2006 (17:24) to November 26, 2010 (21:02)
+Geographic Scope   : Sceaux (suburb of Paris), France
+Input Dimensions   : 9 variables
+```
+
+### Measured Variables
+
+| Attribute | Unit | Description |
+|-----------|------|-------------|
+| `timestamp` | Datetime | Exact measurement timestamp formatted `YYYY-MM-DD HH:MM:SS` |
+| `active_power_kw` | Kilowatts (kW) | Total active power consumed by the household |
+| `reactive_power_kvar` | Kilovolt-Amperes Reactive | Total reactive power consumed |
+| `voltage` | Volts (V) | Minute-averaged line voltage |
+| `intensity_amp` | Amperes (A) | Minute-averaged household electrical current intensity |
+| `sub_metering_1` | Watt-hours (Wh) | Kitchen electrical circuits (dishwasher, microwave, oven) |
+| `sub_metering_2` | Watt-hours (Wh) | Laundry &amp; cooling (washing machine, dryer, refrigerator) |
+| `sub_metering_3` | Watt-hours (Wh) | Climate control (electric water heater, air conditioning) |
+
+---
+
+## Project Directory Layout
 
 ```
 EnergyPulse/
-├── backend/                         FastAPI REST + WebSocket backend
+├── backend/                         FastAPI backend and machine learning pipelines
 │   └── app/
-│       ├── main.py                  Entry point, CORS, WebSocket /ws/live
-│       ├── config.py                Pydantic settings (reads .env)
-│       ├── models/                  SQLAlchemy ORM — readings, alerts, aggregates, predictions
-│       ├── routers/                 REST endpoints — readings, aggregates, alerts, ml, sim...
-│       ├── schemas/                 Pydantic request/response schemas
-│       ├── services/                DB session factory, WebSocket manager, ingestion pipeline
-│       ├── simulator/               Async dataset replay engine (asyncio.Task)
-│       ├── ml/                      Classifier, forecaster, and anomaly detector
-│       └── preprocessing/           UCI dataset cleaning -> Parquet pipeline
-├── frontend/                        React 18 + Vite SPA
+│       ├── main.py                  FastAPI server entrypoint, middleware, and WebSocket router
+│       ├── config.py                Pydantic settings loaded from environment variables
+│       ├── models/                  SQLAlchemy ORM models (Readings, Alerts, Aggregates)
+│       ├── routers/                 REST API routers (Readings, Alerts, ML, Simulator, Settings)
+│       ├── schemas/                 Pydantic validation schemas for requests and responses
+│       ├── services/                Database connection pooling, WebSocket manager, and ingestion
+│       ├── simulator/               Asynchronous dataset replay engine (asyncio background task)
+│       ├── ml/                      Classifier, regressor forecaster, and anomaly detector
+│       └── preprocessing/           UCI dataset extraction, validation, and Parquet caching
+├── frontend/                        React 18 single-page dashboard built with Vite
 │   └── src/
-│       ├── pages/                   8 pages (Live, Historical, Classification, Forecast...)
-│       ├── hooks/useWebSocket.js    Auto-reconnect WebSocket hook
-│       └── api.js                   Axios client and blob CSV downloads
-├── scripts/                         download_data, init_db, load_historical, run_ml_training
-├── docker-compose.yml               MySQL 8 container configuration
-├── requirements.txt                 Python dependencies
-└── start.ps1                        One-click Windows launcher
+│       ├── pages/                   Dashboard pages (Live, Historical, Forecast, Alerts, Reports...)
+│       ├── hooks/useWebSocket.js    Custom auto-reconnecting WebSocket hook
+│       └── api.js                   Axios client with base configuration and blob downloads
+├── scripts/                         Operational scripts for setup, data extraction, and seeding
+│   ├── init_db.py                   Database table creation and index initialization
+│   ├── download_data.py             Automated UCI dataset download from official repository
+│   ├── load_historical.py           Bulk dataset ingestion pipeline for MySQL
+│   └── run_ml_training.py           Offline model training and evaluation script
+├── docker-compose.yml               Docker container definition for MySQL 8
+├── requirements.txt                 Pinned Python production dependencies
+└── start.ps1                        One-click automated launch script for Windows
 ```
 
 ---
 
-<div align="center">
+## Quick Start Guide
 
-## Quick Start
+### System Prerequisites
 
-</div>
-
-### Prerequisites
-
-| Tool | Version | Purpose |
-|------|---------|---------|
-| Python | 3.10+ | Backend API &amp; ML Pipeline |
-| Node.js | 18+ | Frontend Dashboard |
-| MySQL | 8+ **or** Docker | Relational Database |
+| Requirement | Supported Version | Notes |
+|-------------|-------------------|-------|
+| Python | 3.10 or higher | Required for async backend runtime and ML libraries |
+| Node.js | 18 or higher | Required for frontend build system |
+| MySQL | 8.0 or Docker | Relational database storage |
 
 <br/>
 
-### Step 1 — Clone &amp; Install Dependencies
+### Step 1 — Clone the Repository
 
 ```bash
 git clone https://github.com/Shwetapatil13/EnergyPulse.git
 cd EnergyPulse
+```
 
-# Python dependencies
+### Step 2 — Install Dependencies
+
+```bash
+# Install Python backend dependencies
 pip install -r requirements.txt
 
-# Frontend dependencies
+# Install frontend Node dependencies
 cd frontend && npm install && cd ..
 ```
 
-### Step 2 — Configure Environment
+### Step 3 — Environment Configuration
+
+Create your `.env` configuration file from the template:
 
 ```bash
 cp .env.example .env
-# Edit .env -> set DB_HOST, DB_USER, DB_PASSWORD
 ```
 
-### Step 3 — Start MySQL
+Ensure your `.env` contains valid credentials:
+```ini
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=energy_user
+DB_PASSWORD=energy_pass
+DB_NAME=energypulse
+```
 
+### Step 4 — Launch MySQL Database
+
+If using Docker Compose:
 ```bash
 docker-compose up -d mysql
 ```
 
-### Step 4 — Initialize Database &amp; Preprocess Data
+Or connect directly to your locally installed MySQL 8 server.
+
+### Step 5 — Initialize Schema & Preprocess Data
 
 ```bash
-# 1. Create all DB tables
+# 1. Create tables and indexes
 python scripts/init_db.py
 
 # 2. Download UCI dataset (~130 MB ZIP)
 python scripts/download_data.py
 
-# 3. Clean & preprocess -> Parquet files (~2M rows)
+# 3. Clean and compile dataset into Parquet format
 python -m backend.app.preprocessing.cleaner
 
-# 4. Bulk load into MySQL
-#    --with-readings loads full 2M minute readings (~8 min, recommended)
+# 4. Ingest historical readings into MySQL (recommended for full analytical capabilities)
 python scripts/load_historical.py --with-readings
 ```
 
-### Step 5 — Launch Application
+### Step 6 — Run the Application
 
-**Windows (One-click script):**
+#### Option A: One-Click Startup (Windows)
 ```powershell
 .\start.ps1
 ```
 
-**Manual (Two separate terminals):**
+#### Option B: Manual Multi-Terminal Startup
+
 ```bash
-# Terminal 1 — Backend API on :8000
+# Terminal 1 — Start FastAPI Server (Port 8000)
 python -m backend.app.main
 
-# Terminal 2 — Frontend Dashboard on :5173
+# Terminal 2 — Start Vite Development Server (Port 5173)
 cd frontend && npm run dev
 ```
 
-> Application Interface: **http://localhost:5173**  
-> Interactive API Docs: **http://localhost:8000/docs**
+Navigate to:
+- **Interactive Web Dashboard**: `http://localhost:5173`
+- **Interactive OpenAPI Documentation**: `http://localhost:8000/docs`
+
+---
+
+## API Specification Reference
+
+| Method | Route | Description |
+|--------|-------|-------------|
+| `GET` | `/` | System root and service status verification |
+| `GET` | `/health` | Health probe reporting database connectivity and simulator state |
+| `WS` | `/ws/live` | Low-latency bi-directional WebSocket telemetry stream |
+| `POST` | `/api/simulator/control` | Playback dispatcher: `start`, `pause`, `resume`, `stop`, `seek`, `set_speed` |
+| `GET` | `/api/readings/` | Paginated historical time-series readings with date-range filters |
+| `GET` | `/api/readings/latest` | Most recent telemetry window for real-time charting |
+| `GET` | `/api/readings/summary` | Aggregate statistical summary (min, max, mean, sum) over range |
+| `GET` | `/api/readings/export/csv` | Stream filtered historical readings as downloadable CSV file |
+| `GET` | `/api/aggregates/hourly` | Rollup energy consumption grouped by hour |
+| `GET` | `/api/aggregates/daily` | Rollup energy consumption grouped by calendar day |
+| `GET` | `/api/aggregates/heatmap` | 7&times;24 day-of-week by hour load intensity matrix |
+| `GET` | `/api/aggregates/comparison` | Period-over-period consumption variance and difference calculations |
+| `GET` | `/api/alerts/` | Filterable anomaly incident log by severity and alert category |
+| `GET` | `/api/alerts/summary` | Aggregate breakdown of alert counts grouped by severity |
+| `POST` | `/api/alerts/{id}/acknowledge` | Update state flag of anomaly alert to acknowledged |
+| `GET` | `/api/alerts/export/csv` | Download complete anomaly alert history as CSV file |
+| `GET` | `/api/ml/classification/summary` | Load category distribution percentages (Low / Moderate / High) |
+| `GET` | `/api/ml/forecast` | Next-hour demand forecast with actual vs. predicted curves |
+| `GET` | `/api/ml/metrics` | Model evaluation scorecards (MAE, RMSE, R-squared) |
+| `GET` | `/api/recommendations/` | Data-backed sustainability and peak-shaving recommendations |
+| `GET` | `/api/settings/` | Fetch active tariff, detection thresholds, and simulator speed |
+| `PUT` | `/api/settings/` | Update runtime settings and persist to configuration store |
+| `GET` | `/docs` | Interactive Swagger UI API documentation and testing workbench |
+
+---
+
+## System Notes & Methodology
+
+- **Academic Simulation Scope**: All telemetry and live readings are synthesized by replaying the UCI benchmark dataset. No physical hardware sensors or smart meters are connected.
+- **Cost Estimation Model**: Monetary calculations apply an assumed flat rate of ₹8.00 per kilowatt-hour, fully configurable via the Settings module.
+- **Classification Terciles**: Demand classification is bounded by the 33rd percentile (Low load) and 67th percentile (High load) derived strictly from training data.
+- **Recommendation Caveat**: Projected kWh savings and financial estimates are derived from analytical heuristics and do not constitute professional energy auditing advice.
+- **Historical Scope**: Comparative historical features operate within the December 2006 through November 2010 temporal horizon.
 
 ---
 
 <div align="center">
 
-## API Endpoints
-
-</div>
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/` | Root health check |
-| `GET` | `/health` | Health check and simulator status |
-| `WS` | `/ws/live` | Live reading stream via WebSocket |
-| `POST` | `/api/simulator/control` | Playback control: `start`, `pause`, `resume`, `stop`, `seek`, `set_speed` |
-| `GET` | `/api/readings/` | Historical readings (paginated, filterable) |
-| `GET` | `/api/readings/latest` | Last N readings for rolling telemetry |
-| `GET` | `/api/readings/summary` | Aggregate metrics for specified date range |
-| `GET` | `/api/readings/export/csv` | Download readings as CSV |
-| `GET` | `/api/aggregates/hourly` | Hourly energy aggregates |
-| `GET` | `/api/aggregates/daily` | Daily energy aggregates |
-| `GET` | `/api/aggregates/heatmap` | 7&times;24 power heatmap matrix |
-| `GET` | `/api/aggregates/comparison` | Period-over-period comparison |
-| `GET` | `/api/alerts/` | Anomaly alerts (filterable by severity) |
-| `GET` | `/api/alerts/summary` | Alert distribution by severity and type |
-| `POST` | `/api/alerts/{id}/acknowledge` | Mark anomaly alert as acknowledged |
-| `GET` | `/api/alerts/export/csv` | Download anomaly alerts as CSV |
-| `GET` | `/api/ml/classification/summary` | Load class distribution summary |
-| `GET` | `/api/ml/forecast` | Energy demand forecast |
-| `GET` | `/api/ml/metrics` | Model training and validation metrics |
-| `GET` | `/api/recommendations/` | Data-driven sustainability recommendations |
-| `GET/PUT` | `/api/settings/` | System configuration and detection thresholds |
-| `GET` | `/docs` | Interactive Swagger UI documentation |
-
----
-
-<div align="center">
-
-## Tech Stack
-
-</div>
-
-<table>
-<tr>
-<th>Layer</th><th>Technology</th><th>Version</th><th>Purpose</th>
-</tr>
-<tr><td rowspan="5"><strong>Backend</strong></td><td>FastAPI</td><td>0.115</td><td>REST API + WebSocket</td></tr>
-<tr><td>SQLAlchemy</td><td>2.x</td><td>ORM + migrations</td></tr>
-<tr><td>Uvicorn</td><td>0.30</td><td>ASGI server</td></tr>
-<tr><td>Pandas + NumPy</td><td>2.x</td><td>Data processing</td></tr>
-<tr><td>Scikit-learn</td><td>1.x</td><td>ML models</td></tr>
-<tr><td rowspan="4"><strong>Frontend</strong></td><td>React</td><td>18</td><td>UI framework</td></tr>
-<tr><td>Vite</td><td>5/8</td><td>Build tool (HMR)</td></tr>
-<tr><td>Recharts</td><td>2.x</td><td>Data visualization</td></tr>
-<tr><td>Axios</td><td>1.x</td><td>HTTP + blob downloads</td></tr>
-<tr><td rowspan="2"><strong>Data Storage</strong></td><td>MySQL</td><td>8.0</td><td>Primary database</td></tr>
-<tr><td>Apache Parquet</td><td>—</td><td>Preprocessed dataset cache</td></tr>
-<tr><td><strong>DevOps</strong></td><td>Docker Compose</td><td>—</td><td>MySQL container</td></tr>
-</table>
-
-<br/>
-
-**Dataset:** [UCI Individual Household Electric Power Consumption](https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption)  
-`2,075,259 rows` &bull; `1-minute intervals` &bull; `Dec 2006 – Nov 2010` &bull; French household
-
----
-
-<div align="center">
-
-## Important Disclaimers
-
-</div>
-
-> - **Simulation Scope:** All data replays the UCI dataset. No physical sensors or live smart meters are involved.  
-> - **Tariff Model:** Cost estimates use an assumed flat rate of ₹8/kWh (configurable in Settings).  
-> - **ML Classification:** Power demand classification is percentile-based (Low: &le; P33, Moderate: P33–P67, High: &gt; P67).  
-> - **Recommendations:** Sustainability tips and projected savings are academic estimates, not financial advice.  
-> - **Temporal Scope:** Dataset covers 2006–2010; comparison and aggregate features operate within this historical horizon.
-
----
-
-<div align="center">
-
-## Author
+## Author & Maintainer
 
 **Shweta Patil**
 
-[![GitHub](https://img.shields.io/badge/@Shwetapatil13-181717?style=for-the-badge&logo=github)](https://github.com/Shwetapatil13)
+[![GitHub Profile](https://img.shields.io/badge/@Shwetapatil13-181717?style=for-the-badge&logo=github)](https://github.com/Shwetapatil13)
 
 <br/>
-
----
 
 *EnergyPulse &bull; Distributed &amp; Autonomous Sensor Systems Course Project*
 
 <br/>
 
-![stars](https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/Shwetapatil13/EnergyPulse&label=GitHub%20Stars&query=stargazers_count&color=3b82f6&style=flat-square&logo=github)
-![forks](https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/Shwetapatil13/EnergyPulse&label=Forks&query=forks_count&color=10b981&style=flat-square&logo=github)
+[![GitHub Stars](https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/Shwetapatil13/EnergyPulse&label=GitHub%20Stars&query=stargazers_count&color=3b82f6&style=flat-square&logo=github)](https://github.com/Shwetapatil13/EnergyPulse)
+[![GitHub Forks](https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/Shwetapatil13/EnergyPulse&label=Forks&query=forks_count&color=10b981&style=flat-square&logo=github)](https://github.com/Shwetapatil13/EnergyPulse)
 
 </div>
