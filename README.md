@@ -11,7 +11,9 @@
 ╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝      ╚═════╝ ╚══════╝╚══════╝╚══════╝
 ```
 
-### ⚡ Smart Energy Monitoring & Analytics Dashboard
+### Smart Energy Monitoring & Analytics Dashboard
+
+*Real-Time IoT Simulation &bull; Machine Learning Pipeline &bull; Interactive Telemetry*
 
 <br/>
 
@@ -24,8 +26,8 @@
 
 <br/>
 
-> 🔬 **Academic Simulation Project** · Replays 2,075,259 real electricity readings from the  
-> UCI Household Power Consumption dataset (France, 2006–2010) through a virtual IoT pipeline.
+> **Academic Simulation Project**  
+> Replays 2,075,259 real electricity readings from the UCI Household Power Consumption dataset (France, 2006–2010) through a virtual IoT streaming pipeline.
 
 <br/>
 
@@ -35,7 +37,7 @@
 
 <div align="center">
 
-## 🎯 What Does It Do?
+## Overview
 
 </div>
 
@@ -45,7 +47,7 @@ EnergyPulse streams minute-level electricity readings through a **virtual IoT si
 
 <div align="center">
 
-## 📸 Dashboard Pages
+## Dashboard Modules
 
 </div>
 
@@ -53,19 +55,19 @@ EnergyPulse streams minute-level electricity readings through a **virtual IoT si
 <tr>
 <td width="50%">
 
-**⚡ Live Monitor**
-- Real-time dataset replay at up to 3600× speed
+**Live Monitor**
+- Real-time dataset replay at up to 3600x speed
 - WebSocket streaming with auto-reconnect
 - Animated power gauge and rolling chart
-- Playback controls: Start · Pause · Resume · Stop · Seek
+- Playback controls: Start &bull; Pause &bull; Resume &bull; Stop &bull; Seek
 
 </td>
 <td width="50%">
 
-**📊 Historical Analysis**
+**Historical Analysis**
 - Full 4-year dataset (2006–2010) exploration
-- Hourly & daily power trend charts
-- Day-of-week × Hour heatmap (7×24 grid)
+- Hourly &amp; daily power trend charts
+- Day-of-week &times; Hour heatmap (7&times;24 grid)
 - Date range filter + CSV export
 
 </td>
@@ -73,16 +75,16 @@ EnergyPulse streams minute-level electricity readings through a **virtual IoT si
 <tr>
 <td>
 
-**🧠 Load Classification**
+**Load Classification**
 - Percentile-based labeling: Low / Moderate / High
-- Class distribution & accuracy metrics
+- Class distribution &amp; accuracy metrics
 - Training data statistics
 - Real-time classification per reading
 
 </td>
 <td>
 
-**📈 Energy Forecast**
+**Energy Forecast**
 - ML or naive-baseline energy predictions
 - Predicted vs actual comparison chart
 - MAE, RMSE model metrics
@@ -93,19 +95,19 @@ EnergyPulse streams minute-level electricity readings through a **virtual IoT si
 <tr>
 <td>
 
-**🔔 Anomaly Alerts**
-- Z-score, IQR & absolute threshold detection
+**Anomaly Alerts**
+- Z-score, IQR &amp; absolute threshold detection
 - Severity levels: Low / Medium / High / Critical
-- Filter, acknowledge & track alert history
+- Filter, acknowledge &amp; track alert history
 - CSV export
 
 </td>
 <td>
 
-**💡 Recommendations**
+**Recommendations**
 - Data-driven sustainability tips
-- Estimated savings in kWh & ₹
-- Peak-shift, standby & appliance advice
+- Estimated savings in kWh &amp; ₹
+- Peak-shift, standby &amp; appliance advice
 - Pattern-based insights from 4 years of data
 
 </td>
@@ -113,19 +115,19 @@ EnergyPulse streams minute-level electricity readings through a **virtual IoT si
 <tr>
 <td>
 
-**📄 Reports**
+**Reports**
 - Full KPI summary cards
 - Daily trend bar chart
-- Load class & alert breakdown tables
-- One-click CSV export for readings & alerts
+- Load class &amp; alert breakdown tables
+- One-click CSV export for readings &amp; alerts
 
 </td>
 <td>
 
-**⚙️ Settings**
+**Settings**
 - Configurable electricity tariff (₹/kWh)
 - Anomaly detection thresholds
-- Simulator speed & loop controls
+- Simulator speed &amp; loop controls
 - Real-time settings applied to pipeline
 
 </td>
@@ -136,42 +138,39 @@ EnergyPulse streams minute-level electricity readings through a **virtual IoT si
 
 <div align="center">
 
-## 🗂️ Project Structure
+## Project Structure
 
 </div>
 
 ```
 EnergyPulse/
-│
-├── 🐍  backend/                     FastAPI REST + WebSocket backend
-│    └── app/
-│         ├── main.py                Entry point, CORS, WebSocket /ws/live
-│         ├── config.py              Pydantic settings (reads .env)
-│         ├── models/                SQLAlchemy ORM — readings, alerts, aggregates, predictions
-│         ├── routers/               REST endpoints — readings, aggregates, alerts, ml, sim…
-│         ├── schemas/               Pydantic request/response schemas
-│         ├── services/              DB session factory, WebSocket manager, ingestion pipeline
-│         ├── simulator/             Async dataset replay engine (asyncio.Task)
-│         ├── ml/                    Classifier · Forecaster · Anomaly Detector
-│         └── preprocessing/        UCI dataset cleaning → Parquet pipeline
-│
-├── ⚛️   frontend/                    React 18 + Vite SPA
-│    └── src/
-│         ├── pages/                 8 pages (Live, Historical, Classification, Forecast…)
-│         ├── hooks/useWebSocket.js  Auto-reconnect WebSocket hook
-│         └── api.js                 Axios client + blob CSV downloads
-│
-├── 📜  scripts/                     download_data · init_db · load_historical · run_ml_training
-├── 🐳  docker-compose.yml           MySQL 8 container
-├── 📋  requirements.txt             All Python dependencies
-└── 🚀  start.ps1                    One-click Windows launcher
+├── backend/                         FastAPI REST + WebSocket backend
+│   └── app/
+│       ├── main.py                  Entry point, CORS, WebSocket /ws/live
+│       ├── config.py                Pydantic settings (reads .env)
+│       ├── models/                  SQLAlchemy ORM — readings, alerts, aggregates, predictions
+│       ├── routers/                 REST endpoints — readings, aggregates, alerts, ml, sim...
+│       ├── schemas/                 Pydantic request/response schemas
+│       ├── services/                DB session factory, WebSocket manager, ingestion pipeline
+│       ├── simulator/               Async dataset replay engine (asyncio.Task)
+│       ├── ml/                      Classifier, forecaster, and anomaly detector
+│       └── preprocessing/           UCI dataset cleaning -> Parquet pipeline
+├── frontend/                        React 18 + Vite SPA
+│   └── src/
+│       ├── pages/                   8 pages (Live, Historical, Classification, Forecast...)
+│       ├── hooks/useWebSocket.js    Auto-reconnect WebSocket hook
+│       └── api.js                   Axios client and blob CSV downloads
+├── scripts/                         download_data, init_db, load_historical, run_ml_training
+├── docker-compose.yml               MySQL 8 container configuration
+├── requirements.txt                 Python dependencies
+└── start.ps1                        One-click Windows launcher
 ```
 
 ---
 
 <div align="center">
 
-## ⚙️ Quick Start
+## Quick Start
 
 </div>
 
@@ -179,13 +178,13 @@ EnergyPulse/
 
 | Tool | Version | Purpose |
 |------|---------|---------|
-| Python | 3.10+ | Backend |
-| Node.js | 18+ | Frontend |
-| MySQL | 8+ **or** Docker | Database |
+| Python | 3.10+ | Backend API &amp; ML Pipeline |
+| Node.js | 18+ | Frontend Dashboard |
+| MySQL | 8+ **or** Docker | Relational Database |
 
 <br/>
 
-### Step 1 — Clone & Install
+### Step 1 — Clone &amp; Install Dependencies
 
 ```bash
 git clone https://github.com/Shwetapatil13/EnergyPulse.git
@@ -202,7 +201,7 @@ cd frontend && npm install && cd ..
 
 ```bash
 cp .env.example .env
-# Edit .env → set DB_HOST, DB_USER, DB_PASSWORD
+# Edit .env -> set DB_HOST, DB_USER, DB_PASSWORD
 ```
 
 ### Step 3 — Start MySQL
@@ -211,7 +210,7 @@ cp .env.example .env
 docker-compose up -d mysql
 ```
 
-### Step 4 — Load the Dataset
+### Step 4 — Initialize Database &amp; Preprocess Data
 
 ```bash
 # 1. Create all DB tables
@@ -220,7 +219,7 @@ python scripts/init_db.py
 # 2. Download UCI dataset (~130 MB ZIP)
 python scripts/download_data.py
 
-# 3. Clean & preprocess → Parquet files (~2M rows)
+# 3. Clean & preprocess -> Parquet files (~2M rows)
 python -m backend.app.preprocessing.cleaner
 
 # 4. Bulk load into MySQL
@@ -228,62 +227,63 @@ python -m backend.app.preprocessing.cleaner
 python scripts/load_historical.py --with-readings
 ```
 
-### Step 5 — Launch 🚀
+### Step 5 — Launch Application
 
-**Windows (one command):**
+**Windows (One-click script):**
 ```powershell
 .\start.ps1
 ```
 
-**Manual (two terminals):**
+**Manual (Two separate terminals):**
 ```bash
 # Terminal 1 — Backend API on :8000
 python -m backend.app.main
 
-# Terminal 2 — Frontend on :5173
+# Terminal 2 — Frontend Dashboard on :5173
 cd frontend && npm run dev
 ```
 
-> Open **http://localhost:5173** · API docs at **http://localhost:8000/docs**
+> Application Interface: **http://localhost:5173**  
+> Interactive API Docs: **http://localhost:8000/docs**
 
 ---
 
 <div align="center">
 
-## 📡 API Endpoints
+## API Endpoints
 
 </div>
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/` | Root health check |
-| `GET` | `/health` | Health + simulator state |
-| `WS` | `/ws/live` | 🔴 Live reading stream |
-| `POST` | `/api/simulator/control` | `start` · `pause` · `resume` · `stop` · `seek` · `set_speed` |
+| `GET` | `/health` | Health check and simulator status |
+| `WS` | `/ws/live` | Live reading stream via WebSocket |
+| `POST` | `/api/simulator/control` | Playback control: `start`, `pause`, `resume`, `stop`, `seek`, `set_speed` |
 | `GET` | `/api/readings/` | Historical readings (paginated, filterable) |
-| `GET` | `/api/readings/latest` | Last N readings for live chart |
-| `GET` | `/api/readings/summary` | Aggregate stats for date range |
-| `GET` | `/api/readings/export/csv` | ⬇️ Download readings as CSV |
+| `GET` | `/api/readings/latest` | Last N readings for rolling telemetry |
+| `GET` | `/api/readings/summary` | Aggregate metrics for specified date range |
+| `GET` | `/api/readings/export/csv` | Download readings as CSV |
 | `GET` | `/api/aggregates/hourly` | Hourly energy aggregates |
 | `GET` | `/api/aggregates/daily` | Daily energy aggregates |
-| `GET` | `/api/aggregates/heatmap` | 7×24 power heatmap matrix |
+| `GET` | `/api/aggregates/heatmap` | 7&times;24 power heatmap matrix |
 | `GET` | `/api/aggregates/comparison` | Period-over-period comparison |
-| `GET` | `/api/alerts/` | Anomaly alerts (severity filter) |
-| `GET` | `/api/alerts/summary` | Counts by severity & type |
-| `POST` | `/api/alerts/{id}/acknowledge` | Mark alert as read |
-| `GET` | `/api/alerts/export/csv` | ⬇️ Download alerts as CSV |
-| `GET` | `/api/ml/classification/summary` | Load class distribution |
-| `GET` | `/api/ml/forecast` | Energy forecast |
-| `GET` | `/api/ml/metrics` | Model training metrics |
-| `GET` | `/api/recommendations/` | Sustainability recommendations |
-| `GET/PUT` | `/api/settings/` | App configuration |
-| `GET` | `/docs` | 📖 Swagger UI |
+| `GET` | `/api/alerts/` | Anomaly alerts (filterable by severity) |
+| `GET` | `/api/alerts/summary` | Alert distribution by severity and type |
+| `POST` | `/api/alerts/{id}/acknowledge` | Mark anomaly alert as acknowledged |
+| `GET` | `/api/alerts/export/csv` | Download anomaly alerts as CSV |
+| `GET` | `/api/ml/classification/summary` | Load class distribution summary |
+| `GET` | `/api/ml/forecast` | Energy demand forecast |
+| `GET` | `/api/ml/metrics` | Model training and validation metrics |
+| `GET` | `/api/recommendations/` | Data-driven sustainability recommendations |
+| `GET/PUT` | `/api/settings/` | System configuration and detection thresholds |
+| `GET` | `/docs` | Interactive Swagger UI documentation |
 
 ---
 
 <div align="center">
 
-## 🧰 Tech Stack
+## Tech Stack
 
 </div>
 
@@ -291,44 +291,44 @@ cd frontend && npm run dev
 <tr>
 <th>Layer</th><th>Technology</th><th>Version</th><th>Purpose</th>
 </tr>
-<tr><td rowspan="5">🐍 Backend</td><td>FastAPI</td><td>0.115</td><td>REST API + WebSocket</td></tr>
+<tr><td rowspan="5"><strong>Backend</strong></td><td>FastAPI</td><td>0.115</td><td>REST API + WebSocket</td></tr>
 <tr><td>SQLAlchemy</td><td>2.x</td><td>ORM + migrations</td></tr>
 <tr><td>Uvicorn</td><td>0.30</td><td>ASGI server</td></tr>
 <tr><td>Pandas + NumPy</td><td>2.x</td><td>Data processing</td></tr>
 <tr><td>Scikit-learn</td><td>1.x</td><td>ML models</td></tr>
-<tr><td rowspan="4">⚛️ Frontend</td><td>React</td><td>18</td><td>UI framework</td></tr>
+<tr><td rowspan="4"><strong>Frontend</strong></td><td>React</td><td>18</td><td>UI framework</td></tr>
 <tr><td>Vite</td><td>5/8</td><td>Build tool (HMR)</td></tr>
-<tr><td>Recharts</td><td>2.x</td><td>Data visualisation</td></tr>
+<tr><td>Recharts</td><td>2.x</td><td>Data visualization</td></tr>
 <tr><td>Axios</td><td>1.x</td><td>HTTP + blob downloads</td></tr>
-<tr><td rowspan="2">🗄️ Data</td><td>MySQL</td><td>8.0</td><td>Primary database</td></tr>
+<tr><td rowspan="2"><strong>Data Storage</strong></td><td>MySQL</td><td>8.0</td><td>Primary database</td></tr>
 <tr><td>Apache Parquet</td><td>—</td><td>Preprocessed dataset cache</td></tr>
-<tr><td>📦 DevOps</td><td>Docker Compose</td><td>—</td><td>MySQL container</td></tr>
+<tr><td><strong>DevOps</strong></td><td>Docker Compose</td><td>—</td><td>MySQL container</td></tr>
 </table>
 
 <br/>
 
 **Dataset:** [UCI Individual Household Electric Power Consumption](https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption)  
-`2,075,259 rows` · `1-minute intervals` · `Dec 2006 – Nov 2010` · French household
+`2,075,259 rows` &bull; `1-minute intervals` &bull; `Dec 2006 – Nov 2010` &bull; French household
 
 ---
 
 <div align="center">
 
-## ⚠️ Important Disclaimers
+## Important Disclaimers
 
 </div>
 
-> 🔬 **Simulation only** — All data replays the UCI dataset. No physical sensors are involved.  
-> 💰 **Assumed tariff** — Cost estimates use ₹8/kWh flat rate (configurable in Settings).  
-> 📊 **ML thresholds** — Classification is percentile-based (low ≤ p33 · moderate p33–p67 · high > p67).  
-> 💡 **Recommendations** — Rough estimates for academic purposes, not financial advice.  
-> 🕐 **Date range** — Dataset covers 2006–2010; comparison features use this historical range.
+> - **Simulation Scope:** All data replays the UCI dataset. No physical sensors or live smart meters are involved.  
+> - **Tariff Model:** Cost estimates use an assumed flat rate of ₹8/kWh (configurable in Settings).  
+> - **ML Classification:** Power demand classification is percentile-based (Low: &le; P33, Moderate: P33–P67, High: &gt; P67).  
+> - **Recommendations:** Sustainability tips and projected savings are academic estimates, not financial advice.  
+> - **Temporal Scope:** Dataset covers 2006–2010; comparison and aggregate features operate within this historical horizon.
 
 ---
 
 <div align="center">
 
-## 👩‍💻 Author
+## Author
 
 **Shweta Patil**
 
@@ -338,11 +338,11 @@ cd frontend && npm run dev
 
 ---
 
-*Made with ❤️ · EnergyPulse · DASS Course Project*
+*EnergyPulse &bull; Distributed &amp; Autonomous Sensor Systems Course Project*
 
 <br/>
 
-![visitors](https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/Shwetapatil13/EnergyPulse&label=⭐%20Stars&query=stargazers_count&color=3b82f6&style=flat-square)
-![forks](https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/Shwetapatil13/EnergyPulse&label=🍴%20Forks&query=forks_count&color=10b981&style=flat-square)
+![stars](https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/Shwetapatil13/EnergyPulse&label=GitHub%20Stars&query=stargazers_count&color=3b82f6&style=flat-square&logo=github)
+![forks](https://img.shields.io/badge/dynamic/json?url=https://api.github.com/repos/Shwetapatil13/EnergyPulse&label=Forks&query=forks_count&color=10b981&style=flat-square&logo=github)
 
 </div>

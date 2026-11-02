@@ -95,12 +95,12 @@ class SimulatorEngine:
                 f"Processed data not found: {path}. "
                 "Run preprocessing first: python -m backend.app.preprocessing.cleaner"
             )
-        log.info("Loading simulator data from %s …", path)
+        log.info("Loading simulator data from %s ...", path)
         self._df = pd.read_parquet(path, engine="pyarrow")
         # Ensure sorted by timestamp
         if not self._df.index.is_monotonic_increasing:
             self._df = self._df.sort_index()
-        log.info("Simulator data loaded: %d rows (%s → %s)",
+        log.info("Simulator data loaded: %d rows (%s -> %s)",
                  len(self._df),
                  self._df.index.min(),
                  self._df.index.max())
