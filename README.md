@@ -28,7 +28,7 @@
 <br/>
 
 > **Academic Simulation Project**  
-> Replays 2,075,259 real-world electricity readings from the UCI Household Power Consumption dataset (France, 2006–2010) through a high-frequency virtual IoT telemetry engine with real-time ML anomaly detection and energy forecasting.
+> Replays 2,075,259 real-world electricity readings from the UCI Household Power Consumption dataset (France, 2006–2010) through a high-frequency virtual IoT telemetry engine with real-time ML anomaly detection, load forecasting, and live analytical visualizations.
 
 <br/>
 
@@ -38,43 +38,225 @@
 
 ## Executive Overview
 
-EnergyPulse is a full-stack, real-time energy telemetry and predictive intelligence platform designed to bridge the gap between smart electrical infrastructure and actionable analytics. Built on high-resolution smart meter readings recorded every minute over 4 years, EnergyPulse transforms massive time-series datasets into real-time operational intelligence.
+EnergyPulse is an end-to-end energy telemetry and predictive intelligence platform designed to bridge the gap between smart electrical infrastructure and actionable analytical visualizations. Built on high-resolution smart meter readings recorded every minute over four continuous years, EnergyPulse transforms massive time-series datasets into real-time operational intelligence.
 
-The platform continuously replays historical consumption through an asynchronous streaming engine, processes incoming telemetry through an online machine learning pipeline, flags anomalies across multiple statistical vectors, and serves live analytical visualizations over low-latency WebSockets.
+The platform replays historical consumption through an asynchronous streaming engine at up to 3600x real-time speed, processes incoming telemetry through an online machine learning pipeline, flags anomalies across multiple statistical vectors, and streams live telemetry to an interactive dark-mode dashboard over low-latency WebSockets.
 
-```
-+---------------------------------------------------------------------------------+
-|                           UCI DATASET (2,075,259 READINGS)                      |
-+---------------------------------------------------------------------------------+
-                                         |
-                                         v
-+---------------------------------------------------------------------------------+
-|                       Vectorized Data Cleaning & Parquet Cache                  |
-+---------------------------------------------------------------------------------+
-                                         |
-                                         v
-+---------------------------------------------------------------------------------+
-|                   Asynchronous Simulation Engine (1x - 3600x Replay)            |
-+---------------------------------------------------------------------------------+
-                         |                                       |
-                         v (WebSocket Stream)                    v (Ingestion Pipeline)
-+-----------------------------------------------+   +-----------------------------+
-|           FastAPI Telemetry Hub               |   |     Online ML & Analytics   |
-|         (/ws/live Broadcast Server)           |   | - Rolling Z-Score / IQR     |
-+-----------------------------------------------+   | - Tercile Load Classifier   |
-                         |                          | - Rolling Window Aggregates |
-                         v                          +-----------------------------+
-+-----------------------------------------------+                    |
-|             React 18 Dashboard                |                    v
-|  - Real-Time Power Gauges & Telemetry Charts  |   +-----------------------------+
-|  - 7x24 Consumption Heatmaps & Predictions    |   |       MySQL 8 Database      |
-|  - Multi-Zone Sub-Meter Energy Breakdown      |   |   (Aggregates, Alerts, ML)  |
-+-----------------------------------------------+   +-----------------------------+
+---
+
+## System Architecture Diagram
+
+```mermaid
+flowchart TD
+    subgraph DataLayer["Data Layer & Dataset"]
+        UCI["UCI Benchmark Dataset<br/>2,075,259 Minute Readings"]
+        Clean["Cleaner & Feature Preprocessor"]
+        Parquet[("Columnar Parquet Cache<br/>PyArrow Storage")]
+        UCI --> Clean --> Parquet
+    end
+
+    subgraph SimEngine["Asynchronous Telemetry Simulator"]
+        Engine["Simulator Engine<br/>Asyncio Task Loop"]
+        Controls["Transport Dispatcher<br/>1x to 3600x Playback, Seek, Pause"]
+        Parquet --> Engine
+        Controls -.-> Engine
+    end
+
+    subgraph Analytics["Online ML & Processing Pipeline"]
+        Ingest["Ingestion Worker"]
+        ZScore["Rolling Z-Score & IQR<br/>Anomaly Detector"]
+        Classify["Tercile Load Classifier<br/>Low / Moderate / High"]
+        Rollup["Rolling Temporal Aggregator<br/>Hourly & Daily Rollups"]
+        
+        Engine --> Ingest
+        Ingest --> ZScore
+        Ingest --> Classify
+        Ingest --> Rollup
+    end
+
+    subgraph Storage["Persistence Layer"]
+        MySQL[("MySQL 8 Database<br/>Indexed Time-Series & Alerts")]
+        ZScore -->|Persist Alerts| MySQL
+        Classify -->|Persist Readings| MySQL
+        Rollup -->|Persist Aggregates| MySQL
+    end
+
+    subgraph Service["FastAPI Gateway"]
+        WS["WebSocket Telemetry Hub<br/>/ws/live Broadcast"]
+        REST["REST API Endpoints<br/>OpenAPI / Swagger UI"]
+        Engine -->|Broadcast Stream| WS
+        MySQL <--> REST
+    end
+
+    subgraph UI["React 18 Dashboard Visualizations"]
+        Gauge["Live Power Radial Gauge"]
+        Rolling["60-Point Rolling Chart"]
+        SubMeter["Sub-Metering Decomposition"]
+        Heatmap["7x24 Hour-Day Heatmap"]
+        ForecastVis["Predicted vs Actual Curve"]
+        AlertFeed["Real-Time Anomaly Feed"]
+
+        WS --> Gauge
+        WS --> Rolling
+        WS --> SubMeter
+        WS --> AlertFeed
+        REST --> Heatmap
+        REST --> ForecastVis
+    end
 ```
 
 ---
 
-## System Capabilities & Core Features
+## Live Analytical Visualizations
+
+EnergyPulse features a comprehensive suite of live analytical visualizations engineered for industrial telemetry monitoring and high-density time-series exploration.
+
+```
++--------------------------------------------------------------------------------------------------+
+|  ENERGYPULSE  |  Live Monitor  Historical  Classification  Forecast  Alerts  Reports  Settings   |
++--------------------------------------------------------------------------------------------------+
+| [Play] [Pause] [Stop] [Seek] Speed: [ 60x v ]  Time: 2007-03-14 18:42:00  Status: Connected      |
++--------------------------------------------------------------------------------------------------+
+|  +---------------------------+  +-------------------------------------------------------------+  |
+|  |    ACTIVE POWER GAUGE     |  |                 REAL-TIME TELEMETRY STREAM                  |  |
+|  |                           |  |  kW                                                         |  |
+|  |          3.42 kW          |  |   4 |        /\            /\                               |  |
+|  |     [==== Moderate ====]  |  |   2 |  /\   /  \    /\    /  \    /\                        |  |
+|  |     Peak: 5.12 kW         |  |   0 +--/--\/----\--/--\--/----\--/--\---------------------  |  |
+|  +---------------------------+  +-------------------------------------------------------------+  |
+|  +--------------------------------------------------------------------------------------------+  |
+|  |                               SUB-METERING REAL-TIME DISTRIBUTION                           |  |
+|  |  Sub-Meter 1 (Kitchen): [======== 24% ]      Sub-Meter 2 (Laundry): [==== 12% ]             |  |
+|  |  Sub-Meter 3 (Climate): [================ 48% ]  Base Load:         [====== 16% ]          |  |
+|  +--------------------------------------------------------------------------------------------+  |
+|  +-------------------------------------------------------------+  +---------------------------+  |
+|  |                    ANOMALY ALERTS FEED                      |  |    LOAD CLASSIFICATION    |  |
+|  |  [CRITICAL] 2007-03-14 18:39 - Z-Score > 5.1 (5.42 kW)      |  |  State: High Demand       |  |
+|  |  [MEDIUM]   2007-03-14 18:15 - Delta Surge +2.8 kW          |  |  Confidence: 94.2%        |  |
+|  +-------------------------------------------------------------+  +---------------------------+  |
++--------------------------------------------------------------------------------------------------+
+```
+
+### Analytical Visualization Components
+
+1. **Sub-Second Radial Power Gauge**
+   - Displays instantaneous active power in kilowatts with continuous needle tracking.
+   - Dynamic color-coded thresholds: Green (Low Demand), Amber (Moderate Demand), Red (High / Overload).
+   - Real-time indicator for instantaneous line voltage and current intensity in amperes.
+
+2. **60-Second Sliding-Window Telemetry Chart**
+   - High-frequency rolling waveform tracking active power (kW) and reactive power (kVAR).
+   - Integrated voltage anomaly threshold line with visual over-voltage and sag detection.
+   - Smooth animation powered by Recharts with zero UI stutter at 3600x simulation acceleration.
+
+3. **Multi-Zone Sub-Meter Energy Decomposition**
+   - Live proportional distribution visualizing three dedicated sub-metered circuits:
+     - **Sub-Meter 1**: Kitchen appliances (dishwasher, microwave, electric oven).
+     - **Sub-Meter 2**: Laundry room and cooling (washing machine, dryer, refrigerator).
+     - **Sub-Meter 3**: Climate control (electric water heater, space heating, air conditioning).
+   - Computes and isolates ambient household residual base load in real time.
+
+4. **7x24 Day-Hour Diurnal Heatmap Matrix**
+   - Interactive 168-cell matrix mapping consumption intensity across all 7 weekdays and 24 hourly bins.
+   - Gradient-shaded density cells identifying peak household activity windows, baseload hours, and anomalies.
+   - On-hover inspection reporting mean kWh, peak kW, and sample count for each specific hour-day coordinate.
+
+5. **Dual-Series Forecast Trajectory Curves**
+   - Forward-looking 24-hour demand prediction plotted directly against historical load curves.
+   - Visual baseline comparison highlighting Ridge Regression vs. Last-Observed and Same-Time-Yesterday baselines.
+   - Integrated error scorecards displaying dynamic MAE (Mean Absolute Error) and RMSE metrics.
+
+6. **Real-Time Anomaly Incident Visualizer**
+   - Severity-graded visual pill tags: Low, Medium, High, and Critical.
+   - Categorized by detection rule: Z-score breach, IQR outlier, absolute limit, or rapid delta surge.
+   - One-click acknowledgment action and filterable historical audit trail with CSV export.
+
+---
+
+## Real-Time Telemetry Flow
+
+The sequence diagram below visualizes the low-latency communication cycle between the browser dashboard, WebSocket server, simulation engine, and machine learning pipeline:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Analyst as Operator / Analyst
+    participant UI as React 18 Dashboard
+    participant WS as FastAPI WebSocket (/ws/live)
+    participant Sim as Async Replay Engine
+    participant ML as ML Inference Pipeline
+    participant DB as MySQL 8 Database
+
+    Analyst->>UI: Select Playback Speed (1x - 3600x) & Click Start
+    UI->>WS: Send Control Command {"action": "start", "speed": 60}
+    WS->>Sim: Update Simulation State & Dispatch Loop
+    loop Every Simulation Tick (Accelerated Time-Step)
+        Sim->>Sim: Read Next Chronological Record from Parquet Buffer
+        Sim->>ML: Pass Telemetry Vector (kW, kVAR, V, A, Wh)
+        ML->>ML: Evaluate Rolling Z-Score & IQR Fences
+        ML->>ML: Compute Tercile Demand Classification
+        alt Anomaly Condition Detected
+            ML->>DB: Persist Incident Alert (Type & Severity)
+            ML-->>Sim: Attach Alert Flag to Packet
+        end
+        Sim->>WS: Broadcast Telemetry Payload
+        WS-->>UI: Deliver JSON Packet over WebSocket
+        UI->>UI: Update Radial Power Gauge
+        UI->>UI: Shift 60-Point Rolling Chart
+        UI->>UI: Refresh Sub-Meter Proportions
+    end
+```
+
+---
+
+## Machine Learning & Anomaly Decision Logic
+
+Every incoming electrical measurement is processed through dual evaluation branches for unsupervised anomaly detection and load classification:
+
+```mermaid
+flowchart LR
+    Reading["Incoming Stream Reading<br/>Active Power, Voltage, Sub-Meters"]
+
+    subgraph AnomalyEngine["Multi-Vector Anomaly Engine"]
+        ZCheck{"|Z-Score| > Threshold?"}
+        IQRCheck{"Outside IQR Bounds?"}
+        LimitCheck{"Power > Absolute Limit?"}
+        DeltaCheck{"|Delta kW| > Surge Limit?"}
+
+        CriticalAlert["Critical Alert<br/>Load Exceeds Maximum Safe Threshold"]
+        HighAlert["High Alert<br/>Z-Score > 4 Sigma or Severe Surge"]
+        MediumAlert["Medium Alert<br/>Z-Score > 3 Sigma"]
+        LowAlert["Low Alert<br/>Non-Gaussian IQR Outlier"]
+
+        Reading --> ZCheck
+        Reading --> IQRCheck
+        Reading --> LimitCheck
+        Reading --> DeltaCheck
+
+        LimitCheck -->|Exceeded| CriticalAlert
+        ZCheck -->|> 5 Sigma| CriticalAlert
+        ZCheck -->|> 4 Sigma| HighAlert
+        DeltaCheck -->|Surge Spike| HighAlert
+        ZCheck -->|> 3 Sigma| MediumAlert
+        IQRCheck -->|Outlier| LowAlert
+    end
+
+    subgraph Classifier["Tercile Load Classifier"]
+        TercileSplit{"Active Power Tercile"}
+        LowDemand["Low Demand<br/>Bottom 33% of Distribution"]
+        ModDemand["Moderate Demand<br/>Middle 34% of Distribution"]
+        HighDemand["High Demand<br/>Top 33% of Distribution"]
+
+        Reading --> TercileSplit
+        TercileSplit -->|<= P33| LowDemand
+        TercileSplit -->|P33 to P67| ModDemand
+        TercileSplit -->|> P67| HighDemand
+    end
+```
+
+---
+
+## Core System Modules
 
 ### 1. Real-Time Telemetry & Virtual IoT Simulator
 - **Accelerated Dataset Replay**: Stream 2M+ records at selectable multipliers from 1x up to 3600x real-time speed.
@@ -131,13 +313,13 @@ The platform continuously replays historical consumption through an asynchronous
 | Layer | Component | Version | Role in Architecture |
 |-------|-----------|---------|----------------------|
 | **Backend API** | FastAPI | 0.115 | High-throughput asynchronous REST endpoints and WebSocket stream management |
-| **ASGI Server** | Uvicorn | 0.30 | Lightning-fast asynchronous server gateway interface |
+| **ASGI Server** | Uvicorn | 0.30 | High-performance asynchronous server gateway interface |
 | **ORM & Database Engine** | SQLAlchemy | 2.x | Database connection pooling, session lifecycle, and optimized SQL queries |
 | **Data Processing** | Pandas &amp; NumPy | 2.x | High-speed vectorized data preprocessing, rollups, and rolling-window math |
 | **Machine Learning** | Scikit-Learn | 1.x | Regression forecasting models, classification trees, and validation metrics |
-| **Serialization** | PyArrow / Parquet | Latest | Fast columnar storage for the 2.07M raw reading cache |
+| **Serialization** | PyArrow / Parquet | Latest | Columnar storage engine for the 2.07M raw reading cache |
 | **Frontend Framework** | React | 18 | Declarative single-page application with functional component architecture |
-| **Build & Tooling** | Vite | 5/8 | Fast Hot-Module-Replacement (HMR) development and optimized production bundling |
+| **Build & Tooling** | Vite | 5/8 | Hot-Module-Replacement (HMR) development and optimized production bundling |
 | **Data Visualization** | Recharts | 2.x | Responsive SVG telemetry curves, bar charts, gauges, and heatmap grids |
 | **HTTP Client** | Axios | 1.x | REST API integration with custom interceptors and blob-based CSV download support |
 | **Database** | MySQL | 8.0 | Primary relational storage with composite indexing on temporal columns |
@@ -161,14 +343,14 @@ Input Dimensions   : 9 variables
 
 | Attribute | Unit | Description |
 |-----------|------|-------------|
-| `timestamp` | Datetime | Exact measurement timestamp formatted `YYYY-MM-DD HH:MM:SS` |
-| `active_power_kw` | Kilowatts (kW) | Total active power consumed by the household |
+| `timestamp` | Datetime | Measurement timestamp formatted `YYYY-MM-DD HH:MM:SS` |
+| `active_power_kw` | Kilowatts (kW) | Total active power consumed by household circuits |
 | `reactive_power_kvar` | Kilovolt-Amperes Reactive | Total reactive power consumed |
 | `voltage` | Volts (V) | Minute-averaged line voltage |
-| `intensity_amp` | Amperes (A) | Minute-averaged household electrical current intensity |
-| `sub_metering_1` | Watt-hours (Wh) | Kitchen electrical circuits (dishwasher, microwave, oven) |
-| `sub_metering_2` | Watt-hours (Wh) | Laundry &amp; cooling (washing machine, dryer, refrigerator) |
-| `sub_metering_3` | Watt-hours (Wh) | Climate control (electric water heater, air conditioning) |
+| `intensity_amp` | Amperes (A) | Minute-averaged electrical current intensity |
+| `sub_metering_1` | Watt-hours (Wh) | Kitchen circuits (dishwasher, microwave, oven) |
+| `sub_metering_2` | Watt-hours (Wh) | Laundry &amp; cooling (washer, dryer, refrigerator) |
+| `sub_metering_3` | Watt-hours (Wh) | Climate control (water heater, air conditioning) |
 
 ---
 
